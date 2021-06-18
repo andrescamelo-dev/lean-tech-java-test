@@ -31,8 +31,14 @@ public class EmployeeServiceImpl  implements EmployeeService{
 
     @Override
     public List<Employee> allEmployee(String positionName, String name) throws EmployeeException {
-        // TODO Auto-generated method stub
-        return null;
+
+        if (positionName.isBlank() || name.isEmpty()) {
+            return (List<Employee>) employeeRepository.findAll();
+        } else {
+            return employeeRepository.findPositionIdAndName(positionName, name);
+        }
+
+       
     }
     
 }

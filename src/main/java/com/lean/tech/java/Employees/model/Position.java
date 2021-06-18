@@ -7,6 +7,7 @@ import lombok.Data;
  * @author Andres Camelo <br>
  * @date 16/06/2021
  */
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 
@@ -20,4 +21,9 @@ public class Position {
     private Integer id;
     @Column(name = "name")
     private String name;
+
+    @Tolerate
+    public Position(){
+      super();
+    }
 }

@@ -2,6 +2,7 @@ package com.lean.tech.java.Employees.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import java.math.BigDecimal;
 
@@ -29,4 +30,11 @@ public class Employee {
     private Position positionId;
     @Column(name = "salary")
     private BigDecimal salary;
+
+    @Tolerate
+    public Employee(){
+      super();
+    }
+
+   
 }

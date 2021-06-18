@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 @Repository("EmployeeRepository")
 public interface EmployeeRepository  extends CrudRepository<Employee, Integer>  {
 
-    @Query(value = "select e.* from employee e INNER JOIN person p ON (e.personId = p.id) WHERE p.name = ? ", nativeQuery = true)
-    List<Employee> findByPositionId(String name);
+    @Query(value = "select e from Employee e, Person per, Position pos WHERE e.positionId.id = pos.id AND e.personId.id = per.id AND (pos.name = ?1 OR per.name = ?2)", nativeQuery = false)
+    List<Employee> findPositionIdAndName(String positionName, String name);
     
 }

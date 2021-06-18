@@ -1,6 +1,7 @@
 package com.lean.tech.java.Employees.model;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 /**
  *
@@ -29,4 +30,9 @@ public class Person {
     private String cellphone;
     @Column(name = "cityName")
     private String cityName;
+
+    @Tolerate
+    public Person(){
+      super();
+    }
 }
