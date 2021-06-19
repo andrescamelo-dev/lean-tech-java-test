@@ -29,7 +29,7 @@ public class Employee {
     @ManyToOne(optional = false)
     private Position positionId;
     @Column(name = "salary")
-    private BigDecimal salary;
+    private Integer salary;
 
     @Tolerate
     public Employee(){

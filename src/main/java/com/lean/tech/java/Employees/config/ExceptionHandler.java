@@ -2,8 +2,10 @@ package com.lean.tech.java.Employees.config;
 
 import java.util.NoSuchElementException;
 
+import com.lean.tech.java.Employees.common.ErrorsCodeEnum;
+import com.lean.tech.java.Employees.common.Utils;
 import com.lean.tech.java.Employees.dto.ErrorResponseDTO;
-import com.lean.tech.java.Employees.services.EmployeeServiceImpl;
+import com.lean.tech.java.Employees.services.impl.EmployeeServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +24,7 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	@org.springframework.web.bind.annotation.ExceptionHandler({ IllegalArgumentException.class,
 			IllegalStateException.class })
 	public ResponseEntity<Object> handleMethodInternalError(Exception ex, WebRequest request) {
-
-		ErrorResponseDTO errors = new ErrorResponseDTO();
-		errors.setMensaje("Ocurrió un error sobre la transacción: [" + ex.getMessage() + "]");
-		errors.setCodigo(HttpStatus.NOT_FOUND.value());
-		errors.setTipo("InternalError");
-
+		ErrorResponseDTO errors = Utils.errorResponse("Error in the transaction: [" + ex.getMessage() + "]", "InternalError",ErrorsCodeEnum.INTERNAL_SERVER_ERROR.getCode());
 		LOG.error("Error", ex);
 
 		return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
@@ -36,14 +33,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	@org.springframework.web.bind.annotation.ExceptionHandler({ NoSuchElementException.class,
 			NullPointerException.class })
 	public ResponseEntity<Object> handleMethodNoDataFound(Exception ex, WebRequest request) {
-
-		ErrorResponseDTO errors = new ErrorResponseDTO();
-		errors.setMensaje("Datos no encontrados: [" + ex.getMessage() + "]");
-		errors.setCodigo(HttpStatus.NOT_FOUND.value());
-		errors.setTipo("No data found");
-
+		ErrorResponseDTO errors = Utils.errorResponse("Datos no encontrados: [" + ex.getMessage() + "]", "InternalError",ErrorsCodeEnum.NOT_FOUND.getCode());
 		LOG.error("Error", ex);
-
 		return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 	}
 }

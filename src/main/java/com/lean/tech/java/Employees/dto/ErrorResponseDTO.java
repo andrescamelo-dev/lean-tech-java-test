@@ -5,9 +5,7 @@ import lombok.Data;
 @Data
 public class ErrorResponseDTO {
 
-	  private String mensaje;
-	  private int codigo;
-	  private String tipo;
-
-  
+	  private String message;
+	  private String code;
+	  private String type;
 }

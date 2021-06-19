@@ -1,12 +1,13 @@
-package com.lean.tech.java.Employees.services;
+package com.lean.tech.java.Employees.services.impl;
 
 import java.util.List;
 
 import com.lean.tech.java.Employees.config.EmployeeException;
 import com.lean.tech.java.Employees.convert.EmployeeConverter;
-import com.lean.tech.java.Employees.dto.EmployeeDTO;
+import com.lean.tech.java.Employees.dto.EmployeeRequestDTO;
 import com.lean.tech.java.Employees.model.Employee;
 import com.lean.tech.java.Employees.repository.EmployeeRepository;
+import com.lean.tech.java.Employees.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class EmployeeServiceImpl  implements EmployeeService{
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee saveEmployee(EmployeeDTO employeeDTO) throws EmployeeException {
+    public Employee saveEmployee(EmployeeRequestDTO employeeDTO) throws EmployeeException {
         Employee employee = EmployeeConverter.convertEmployeeDtoToEmployee(employeeDTO);
         return employeeRepository.save(employee);
     }
@@ -35,7 +36,7 @@ public class EmployeeServiceImpl  implements EmployeeService{
         if (positionName.isBlank() || name.isEmpty()) {
             return (List<Employee>) employeeRepository.findAll();
         } else {
-            return employeeRepository.findPositionIdAndName(positionName, name);
+            return employeeRepository.findBYPositionIdAndName(positionName, name);
         }
 
        
